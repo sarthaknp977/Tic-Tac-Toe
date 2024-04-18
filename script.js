@@ -10,6 +10,7 @@ let restartBtn = document.querySelector('.restart-game');
 const box = document.querySelectorAll('.box');
 let finalMessage = document.querySelector('.final-message');
 let gameContainer = document.querySelector('.game-container');
+let counter = 0;
 
 startBtn.addEventListener('click', function () {
     startBtn.style.display = 'none';
@@ -27,41 +28,41 @@ restartBtn.addEventListener('click', function () {
     startGame();
 })
 
-function removeAllSymbols() {
-
-    box.forEach(function (element) {
-        element.classList.remove('circle');
-        element.classList.remove('cross');
-    })
-
-
-
-}
 function startGame() {
+    counter = 0;
     box.forEach(function (element) {
         element.addEventListener('click', function () {
             if (!element.classList.contains('circle') && !element.classList.contains('cross')) {
                 element.classList.add(currentPlayer);
+                counter++;
                 changePlayer();
-
-                if (checkResult('circle')) {
-                    finalMessage.style.display = 'flex';
-                    document.querySelector('.winner-symbol').textContent = ' Circle ';
-                }
-                else if (checkResult('cross')) {
-                    finalMessage.style.display = 'flex';
-                    document.querySelector('.winner-symbol').textContent = ' Cross ';
-
-                }
             }
+
+            if (checkWinner('circle')) {
+                finalMessage.style.display = 'flex';
+                document.querySelector('.winner-symbol').textContent = ' Circle ';
+                currentTurnMessage.style.display = 'none';
+            }
+            else if (checkWinner('cross')) {
+                finalMessage.style.display = 'flex';
+                document.querySelector('.winner-symbol').textContent = ' Cross ';
+                currentTurnMessage.style.display = 'none';
+            }
+
+            else if (counter === 9) { draw(); }
         });
     });
-
 }
 
+function changePlayer() {
+    if (currentPlayer === 'circle') {
+        currentPlayer = 'cross';
+    } else {
+        currentPlayer = 'circle';
+    }
+}
 
-function checkResult(symbol) {
-
+function checkWinner(symbol) {
     for (let i = 0; i < winningPositions.length; i++) {
         const [a, b, c] = winningPositions[i];
         if (
@@ -75,11 +76,15 @@ function checkResult(symbol) {
     return false;
 }
 
+function draw() {
+    finalMessage.style.display = 'flex';
+    document.querySelector('.winner-symbol').textContent = ' Nobody ';
+    currentTurnMessage.style.display = 'none';
+}
 
-function changePlayer() {
-    if (currentPlayer === 'circle') {
-        currentPlayer = 'cross';
-    } else {
-        currentPlayer = 'circle';
-    }
+function removeAllSymbols() {
+    box.forEach(function (element) {
+        element.classList.remove('circle');
+        element.classList.remove('cross');
+    })
 }
