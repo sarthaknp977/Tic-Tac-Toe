@@ -55,7 +55,7 @@ body {
     grid-template-columns: repeat(3, auto);
     border: 10px solid;
     position: relative;
-    /* display: none; */
+    display: none;
 }
 
 .cross::after,
