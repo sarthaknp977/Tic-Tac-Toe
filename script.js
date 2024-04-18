@@ -5,36 +5,62 @@ const winningPositions = [
 ]
 
 let currentPlayer = 'cross';
-let hasCross = false;
-let hasCircle = false;
+let startBtn = document.querySelector('.start-game');
+let restartBtn = document.querySelector('.restart-game');
 const box = document.querySelectorAll('.box');
 let finalMessage = document.querySelector('.final-message');
-box.forEach(function (element) {
-    element.addEventListener('click', function () {
-        if (!element.classList.contains('circle') && !element.classList.contains('cross')) {
-            console.log('clicked');
-            element.classList.add(currentPlayer);
-            changePlayer();
-            if (checkResult('circle')) {
-                finalMessage.style.display = 'flex';
+let gameContainer = document.querySelector('.game-container');
 
-                document.querySelector('.winner-symbol').textContent = ' Circle ';
+startBtn.addEventListener('click', function () {
+    startBtn.style.display = 'none';
+    restartBtn.style.display = 'grid';
+    gameContainer.style.display = 'grid';
+    startGame();
+})
+
+restartBtn.addEventListener('click', function () {
+    startBtn.style.display = 'none';
+    finalMessage.style.display = 'none';
+    removeAllSymbols();
+    gameContainer.style.display = 'grid';
+    currentPlayer = 'cross';
+    startGame();
+})
+
+function removeAllSymbols() {
+
+    box.forEach(function (element) {
+        element.classList.remove('circle');
+        element.classList.remove('cross');
+    })
+
+
+
+}
+function startGame() {
+    box.forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (!element.classList.contains('circle') && !element.classList.contains('cross')) {
+                element.classList.add(currentPlayer);
+                changePlayer();
+
+                if (checkResult('circle')) {
+                    finalMessage.style.display = 'flex';
+                    document.querySelector('.winner-symbol').textContent = ' Circle ';
+                }
+                else if (checkResult('cross')) {
+                    finalMessage.style.display = 'flex';
+                    document.querySelector('.winner-symbol').textContent = ' Cross ';
+
+                }
             }
-            else if (checkResult('cross')) {
-                finalMessage.style.display = 'flex';
-                document.querySelector('.winner-symbol').textContent = ' Cross ';
-            }
-        }
+        });
     });
-});
 
+}
 
 
 function checkResult(symbol) {
-    // if (box[0].classList.contains('circle') && box[1].classList.contains('circle') && box[2].classList.contains('circle')) {
-    //     finalMessage.style.display = 'flex';
-    // }
-
 
     for (let i = 0; i < winningPositions.length; i++) {
         const [a, b, c] = winningPositions[i];

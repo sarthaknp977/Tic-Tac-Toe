@@ -11,6 +11,40 @@ body {
     align-items: center;
     justify-content: center;
     display: flex;
+    background-color: antiquewhite;
+    position: relative;
+}
+
+.game-name {
+    position: absolute;
+    top: 5%;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-game,
+.restart-game {
+    text-align: center;
+    width: 150px;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 30px;
+    background-color: antiquewhite;
+    position: absolute;
+}
+
+
+.restart-game {
+    display: none;
+    bottom: 5%;
+
 }
 
 .game-container {
@@ -20,6 +54,7 @@ body {
     grid-template-columns: repeat(3, auto);
     border: 10px solid;
     position: relative;
+    display: none;
 }
 
 .cross::after,
@@ -28,7 +63,6 @@ body {
     position: absolute;
     background-color: black;
     height: 8px;
-
     width: 90px;
 }
 
@@ -45,16 +79,17 @@ body {
     position: absolute;
     height: 70px;
     width: 70px;
-    background-color: orange;
+
     border-radius: 50%;
 }
 
 .circle::before {
     content: '';
     position: absolute;
-    height: 90px;
-    width: 90px;
-    background-color: black;
+    height: 70px;
+    width: 70px;
+    background-color: transparent;
+    border: 9px solid black;
     border-radius: 50%;
 }
 
@@ -63,7 +98,7 @@ body {
     align-items: center;
     justify-content: center;
     border: 2px solid;
-    background-color: orange;
+    background-color: rgba(255, 217, 146, 0.603);
     position: relative;
 }
 
@@ -77,15 +112,14 @@ body {
 }
 
 .final-message {
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     background-color: black;
-   
     position: absolute;
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
     opacity: 0.8;
-    justify-content:center;
+    justify-content: center;
     display: none;
     color: white;
 }
