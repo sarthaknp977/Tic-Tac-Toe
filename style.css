@@ -35,6 +35,7 @@ body {
     width: 150px;
     padding: 20px;
     cursor: pointer;
+    border: 2px solid;
     border-radius: 30px;
     background-color: antiquewhite;
     position: absolute;
@@ -54,7 +55,7 @@ body {
     grid-template-columns: repeat(3, auto);
     border: 10px solid;
     position: relative;
-    display: none;
+    /* display: none; */
 }
 
 .cross::after,
